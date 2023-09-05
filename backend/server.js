@@ -3,12 +3,21 @@ import dotenv from 'dotenv';
 
 import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import connectDB from './config/db.js';
 
 dotenv.config();
 
 const port = process.env.PORT || 4000;
 
+connectDB();
+
 const app = express();
+
+// For parsing application/json
+app.use(express.json());
+
+// For parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRoutes);
 
